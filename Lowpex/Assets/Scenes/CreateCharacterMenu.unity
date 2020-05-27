@@ -421,7 +421,7 @@ GameObject:
   - component: {fileID: 68851479}
   m_Layer: 5
   m_Name: DekoLeft
-  m_TagString: Untagged
+  m_TagString: Turnable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1191,7 +1191,7 @@ GameObject:
   - component: {fileID: 264212028}
   m_Layer: 5
   m_Name: HeroTypeTextBG
-  m_TagString: Untagged
+  m_TagString: Turnable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1304,7 +1304,7 @@ GameObject:
   - component: {fileID: 297000313}
   m_Layer: 5
   m_Name: DekoRight
-  m_TagString: Untagged
+  m_TagString: Turnable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1945,7 +1945,7 @@ GameObject:
   - component: {fileID: 646422128}
   m_Layer: 5
   m_Name: TurnLefttButton
-  m_TagString: Untagged
+  m_TagString: Turnable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3025,7 +3025,7 @@ GameObject:
   - component: {fileID: 1105192224}
   m_Layer: 5
   m_Name: HeroBG
-  m_TagString: Untagged
+  m_TagString: Turnable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4844,7 +4844,7 @@ GameObject:
   - component: {fileID: 1847148985}
   m_Layer: 5
   m_Name: TurnRightButton
-  m_TagString: Untagged
+  m_TagString: Turnable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5355,6 +5355,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bow01
       objectReference: {fileID: 0}
+    - target: {fileID: 1500168017719090, guid: a870ede8308e8714d828a645d956ef4e, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 1508536442176088, guid: a870ede8308e8714d828a645d956ef4e, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -5860,7 +5864,7 @@ GameObject:
   - component: {fileID: 2076854252}
   m_Layer: 5
   m_Name: BG
-  m_TagString: Untagged
+  m_TagString: Turnable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
