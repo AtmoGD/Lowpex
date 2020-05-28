@@ -6,9 +6,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "PlayerData", menuName = "Data/Player Data")]
 public class PlayerData : ScriptableObject
 {
-    public bool gameStateExists;
-    public bool gameStateIsActive;
-
     public HeroType heroType;
     public int level;
     public int experience;
