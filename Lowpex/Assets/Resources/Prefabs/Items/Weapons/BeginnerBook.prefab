@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4251244296198237429}
   - component: {fileID: 4251244296199237173}
   m_Layer: 0
-  m_Name: bookThick
+  m_Name: BeginnerBook
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 4251244296201498869}
   m_LocalRotation: {x: 0.78827983, y: -0.0000042656325, z: -0.61531675, w: -0.00055137655}
   m_LocalPosition: {x: 8.980333, y: 3.8445058, z: -3.1787353}
-  m_LocalScale: {x: 17.020216, y: 4.00012, z: 14.426442}
+  m_LocalScale: {x: 170, y: 40, z: 144}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0

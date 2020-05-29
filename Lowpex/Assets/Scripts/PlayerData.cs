@@ -6,7 +6,21 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "PlayerData", menuName = "Data/Player Data")]
 public class PlayerData : ScriptableObject
 {
+    public int stateNumber;
     public HeroType heroType;
+
+    #region Player look
+    public Hat hat;
+    public Skin skin;
+    public Hair hair;
+    public Cloth cloth;
+    public Belt belt;
+    public Gloves gloves;
+    public Shoes shoes;
+    public ShoulderPad shoulderPad;
+    #endregion
+
+    #region Player stats
     public int level;
     public int experience;
     public int gold;
@@ -19,6 +33,7 @@ public class PlayerData : ScriptableObject
     public int blockChance;
     public float healthRecovery;
     public float manaRecovery;
+    #endregion
 
     public Buff buffs;
 

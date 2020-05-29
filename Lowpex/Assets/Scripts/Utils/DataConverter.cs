@@ -7,7 +7,7 @@ public static class DataConverter
 {
     public static SerializablePlayerData ConvertFromPlayerData(PlayerData data)
     {
-        SerializablePlayerData output = new SerializablePlayerData(data.heroType)
+        SerializablePlayerData output = new SerializablePlayerData(data.heroType, data.stateNumber)
         {
             level = data.level,
             experience = data.experience,
@@ -25,6 +25,7 @@ public static class DataConverter
     public static PlayerData ConvertToPlayerData(SerializablePlayerData data)
     {
         PlayerData output = Resources.Load("Data/GameState") as  PlayerData;
+        output.stateNumber = data.stateNumber;
         switch (data.heroType)
         {
             case "Warrior":

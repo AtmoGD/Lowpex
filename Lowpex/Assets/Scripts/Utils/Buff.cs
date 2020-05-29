@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[CreateAssetMenu(fileName = "new buff", menuName = "Data/Buff")]
 public class Buff : ScriptableObject
 {
     public string buffName;

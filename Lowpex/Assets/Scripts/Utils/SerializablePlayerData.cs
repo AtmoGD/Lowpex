@@ -5,6 +5,7 @@ using UnityEngine;
 [System.Serializable]
 public class SerializablePlayerData
 {
+    public int stateNumber;
     public string heroType;
     public int level;
     public int experience;
@@ -17,8 +18,9 @@ public class SerializablePlayerData
     public float healthRecovery;
     public float manaRecovery;
 
-    public SerializablePlayerData(HeroType type)
+    public SerializablePlayerData(HeroType type, int stateNum)
     {
+        stateNumber = stateNum;
         heroType = type.ToString();
         level = 1;
         experience = 0;
@@ -30,5 +32,5 @@ public class SerializablePlayerData
         blockChance = 0;
         healthRecovery = 1;
         manaRecovery = 1;
-}
+    }
 }
