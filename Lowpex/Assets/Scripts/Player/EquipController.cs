@@ -6,7 +6,7 @@ public class EquipController : MonoBehaviour
 {
     public PlayerData playerData;
 
-    public void InitPlayer(PlayerData data)
+    public void TakePlayer(PlayerData data)
     {
         playerData = data;
         UpdatePlayer();
@@ -29,23 +29,32 @@ public class EquipController : MonoBehaviour
         }
         return null;
     }
-    public void EquipPrimary(PrimaryWeapon weapon)
+    public void EquipPrimary()
     {
+        if (!playerData.primaryWeapon)
+            return;
+
         ClearPrimary();
-        GameObject newWeapon = Instantiate(weapon.itemPrefab);
-        newWeapon.transform.SetParent(GetPrimary().transform);
+        GameObject newWeapon = Instantiate(playerData.primaryWeapon.itemPrefab);
+        GameObject primaryHand = GetPrimary();
+        newWeapon.transform.SetParent(primaryHand.transform);
         newWeapon.transform.localRotation = Quaternion.identity;
-        newWeapon.transform.localPosition = new Vector3(0, 0, 0);
-        newWeapon.transform.localScale = new Vector3(1, 1, 1);
+        newWeapon.transform.localPosition = Vector3.zero;
+        newWeapon.transform.localScale = Vector3.one;
     }
-    public void EquipSecondary(SecondaryWeapon weapon)
+    public void EquipSecondary()
     {
+        if (!playerData.secondaryWeapon)
+            return;
+
         ClearSecondary();
-        GameObject newWeapon = Instantiate(weapon.itemPrefab);
-        newWeapon.transform.SetParent(GetSecondary().transform);
+        GameObject newWeapon = Instantiate(playerData.secondaryWeapon.itemPrefab);
+        GameObject secondaryHand = GetSecondary();
+        newWeapon.transform.SetParent(secondaryHand.transform);
+        newWeapon.transform.localRotation = secondaryHand.transform.rotation;
         newWeapon.transform.localRotation = Quaternion.identity;
-        newWeapon.transform.localPosition = new Vector3(0, 0, 0);
-        newWeapon.transform.localScale = new Vector3(1, 1, 1);
+        newWeapon.transform.localPosition = Vector3.zero;
+        newWeapon.transform.localScale = Vector3.one;
     }
     public void ClearPrimary()
     {
@@ -72,11 +81,14 @@ public class EquipController : MonoBehaviour
         foreach (Transform obj in transform.GetComponentsInChildren<Transform>(true))
         {
 
-            if (!obj.parent || obj.parent.name != "Hero" || obj.name == "root")
+            if (!obj.parent || obj.parent.name != transform.name || obj.name == "root")
                 continue;
 
             obj.gameObject.SetActive(false);
         }
+
+        EquipPrimary();
+        EquipSecondary();
 
         transform.Find(playerData.hat.ToString())?.gameObject.SetActive(true);
         transform.Find(playerData.skin.ToString()).gameObject.SetActive(true);

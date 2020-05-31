@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class CreateCharacterController : MonoBehaviour
@@ -22,12 +23,19 @@ public class CreateCharacterController : MonoBehaviour
     private ShoulderPad shoulderPad = ShoulderPad.None;
 
     private EquipController equ;
+    private PlayerData playerData;
+    private Animator animator;
     private void Start()
     {
-        equ = hero.GetComponent<EquipController>();
         turnSpeed = 0;
-        equ.InitPlayer(Resources.Load("Data/GameState") as PlayerData);
-        //UpdateHero();
+        animator = hero.GetComponent<Animator>();
+
+        Destroy(hero.GetComponent<Rigidbody>());
+        equ = hero.GetComponent<EquipController>();
+
+        playerData = DataConverter.ConvertToPlayerData(new SerializablePlayerData(HeroType.Warrior, 4));
+        equ.TakePlayer(playerData);
+        ChangeHeroType(1);
     }
     private void Update()
     {
@@ -37,7 +45,11 @@ public class CreateCharacterController : MonoBehaviour
     }
     public void SavePlayer()
     {
-
+        //StateController.DeleteAll();
+        int stateNumber = StateController.CreateNewGameState(playerData.heroType);
+        playerData.stateNumber = stateNumber;
+        StateController.SavePlayer(DataConverter.ConvertFromPlayerData(playerData));
+        SceneManager.LoadScene(1);
     }
     public void TurnHero(float speed)
     {
@@ -54,22 +66,25 @@ public class CreateCharacterController : MonoBehaviour
         {
             case HeroType.Warrior:
                 heroTypeText.text = "Krieger";
-                equ.EquipPrimary(Resources.Load("Data/Weapons/BeginnerSword") as PrimaryWeapon);
-                equ.EquipSecondary(Resources.Load("Data/Weapons/BeginnerShield") as SecondaryWeapon);
+                playerData.primaryWeapon = Resources.Load("Data/Weapons/BeginnerSword") as PrimaryWeapon;
+                playerData.secondaryWeapon = Resources.Load("Data/Weapons/BeginnerShield") as SecondaryWeapon;
                 break;
             case HeroType.Hunter:
                 heroTypeText.text = "Bogenschütze";
-                equ.EquipPrimary(Resources.Load("Data/Weapons/BeginnerBow") as PrimaryWeapon);
-                equ.EquipSecondary(Resources.Load("Data/Weapons/BeginnerArrow") as SecondaryWeapon);
+                playerData.primaryWeapon = Resources.Load("Data/Weapons/BeginnerBow") as PrimaryWeapon;
+                playerData.secondaryWeapon = Resources.Load("Data/Weapons/BeginnerArrow") as SecondaryWeapon;
                 break;
             case HeroType.Mage:
                 heroTypeText.text = "Magier";
-                equ.EquipPrimary(Resources.Load("Data/Weapons/BeginnerWand") as PrimaryWeapon);
-                equ.EquipSecondary(Resources.Load("Data/Weapons/BeginnerBook") as SecondaryWeapon);
+                playerData.primaryWeapon = Resources.Load("Data/Weapons/BeginnerWand") as PrimaryWeapon;
+                playerData.secondaryWeapon = Resources.Load("Data/Weapons/BeginnerBook") as SecondaryWeapon;
                 break;
             default:
                 break;
         }
+
+        animator.runtimeAnimatorController = Resources.Load("Animations/" + playerData.heroType + "Controller") as RuntimeAnimatorController;
+        equ.UpdatePlayer();
     }
     public void ChangeHat(int dir)
     {

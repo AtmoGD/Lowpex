@@ -7,6 +7,32 @@ using System.Runtime.InteropServices;
 
 public class StateController : MonoBehaviour
 {
+    public static void SaveActiveGameState(int state)
+    {
+        BinaryFormatter formatter = new BinaryFormatter();
+        string path = Application.persistentDataPath + "/activeState.data";
+        FileStream stream = new FileStream(path, FileMode.Create);
+
+        formatter.Serialize(stream, state);
+        stream.Close();
+    }
+    public static int GetActiveGameState()
+    {
+        string path = Application.persistentDataPath + "/activeState.data";
+        if (File.Exists(path))
+        {
+            BinaryFormatter formatter = new BinaryFormatter();
+            FileStream stream = new FileStream(path, FileMode.Open);
+
+            string data = formatter.Deserialize(stream) as string;
+            stream.Close();
+
+            int state = int.Parse(data);
+
+            return state;
+        }
+        return -1;
+    }
     public static void SavePlayer(SerializablePlayerData player)
     {
         BinaryFormatter formatter = new BinaryFormatter();
@@ -39,18 +65,18 @@ public class StateController : MonoBehaviour
                     datas[0] = playerData;
                 } else
                 {
-                    PlayerData[] temp = new PlayerData[datas.Length];
+                    PlayerData[] temp = new PlayerData[datas.Length + 1];
                     for (int x = 0; x < datas.Length; x++)
                     {
                         temp[x] = datas[x];
                     }
-                    datas[datas.Length - 1] = playerData;
+                    temp[datas.Length] = playerData;
+                    datas = temp;
                 }
             }
             else
             {
-                Debug.LogError("Save not found");
-                return null;
+                continue;
             }
         }
         return datas;
@@ -76,16 +102,31 @@ public class StateController : MonoBehaviour
             return null;
         }
     }
-    public static int createNewGameState(HeroType type)
+    public static int CreateNewGameState(HeroType type)
     {
         PlayerData[] pData = LoadAllPlayer();
-        int stateNumber = pData == null ? 0 : pData.Length - 1;
+        int stateNumber = pData == null ? 0 : pData.Length;
         SerializablePlayerData data = new SerializablePlayerData(type, stateNumber);
         BinaryFormatter formatter = new BinaryFormatter();
-        string path = Application.persistentDataPath + "/player.data";
+        string path = Application.persistentDataPath + "/player" + stateNumber + ".data";
         FileStream stream = new FileStream(path, FileMode.Create);
         formatter.Serialize(stream, data);
         stream.Close();
         return stateNumber;
+    }
+    public static void DeleteAll()
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            DeleteState(i);
+        }
+    }
+    public static void DeleteState(int stateNumber)
+    {
+        string path = Application.persistentDataPath + "/player" + stateNumber + ".data";
+        if (File.Exists(path))
+        {
+            File.Delete(Application.persistentDataPath + "/player" + stateNumber + ".data");
+        }
     }
 }

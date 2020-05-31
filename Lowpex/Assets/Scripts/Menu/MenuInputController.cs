@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,29 +12,69 @@ public class MenuInputController : MonoBehaviour
     public GameObject secondPlatform;
     public GameObject thirdPlatform;
     public GameObject playerPrefab;
+    public GameObject deleteButton;
 
     public float rotationSpeed = 50f;
     public Text buttonText;
-
+    
     public PlayerData[] playerData;
 
-    private float actualSpeed = 0;
     private int activeState = 0;
+    private int firstState;
+    private int secondState;
+    private int thirdState;
+
+    private float actualSpeed = 0;
     private bool isRotating = false;
     private float rotation = 0;
-    // Start is called before the first frame update
+
     void Start()
     {
         LoadPlayer();
+
+        if (playerData == null)
+            buttonText.text = "Neues Spiel";
+        else 
+            buttonText.text = activeState < playerData.Length ? "Spiel starten" : "Neues Spiel";
     }
 
-    // Update is called once per frame
     void Update()
     {
         if(isRotating)
         {
             Rotate();
         }
+    }
+    public void ButtonClicked()
+    {
+        if (isRotating)
+            return;
+
+        if (playerData != null && activeState < playerData.Length)
+        {
+            StateController.SaveActiveGameState(activeState);
+            SceneManager.LoadScene(3);
+        }
+        else
+        {
+            SceneManager.LoadScene(2);
+        }
+    }
+    public void DeleteActiveState()
+    {
+        switch (activeState)
+        {
+            case 0:
+                StateController.DeleteState(firstState);
+                break;
+            case 1:
+                StateController.DeleteState(secondState);
+                break;
+            case 2:
+                StateController.DeleteState(thirdState);
+                break;
+        }
+        SceneManager.LoadScene(1);
     }
     private void LoadPlayer()
     {
@@ -42,8 +83,35 @@ public class MenuInputController : MonoBehaviour
         if (playerData == null)
             return;
 
-        
+        GameObject stateOne = Instantiate(playerPrefab);
+        stateOne.transform.localScale = new Vector3(8, 8, 8);
+        stateOne.transform.SetParent(firstPlatform.transform);
+        stateOne.GetComponent<GameController>().SendMessage("InitPlayer", playerData[0]);
+        stateOne.transform.localPosition = new Vector3(0, 0, 0.05f);
+        stateOne.AddComponent<LookForwardController>();
+        firstState = playerData[0].stateNumber;
 
+        if (playerData.Length < 2)
+            return;
+
+        GameObject stateTwo = Instantiate(playerPrefab);
+        stateTwo.transform.localScale = new Vector3(8, 8, 8);
+        stateTwo.transform.SetParent(secondPlatform.transform);
+        stateTwo.GetComponent<GameController>().SendMessage("InitPlayer", playerData[1]);
+        stateTwo.transform.localPosition = new Vector3(0, 0, 0.05f);
+        stateTwo.AddComponent<LookForwardController>();
+        secondState = playerData[1].stateNumber;
+
+        if (playerData.Length < 3)
+            return;
+
+        GameObject stateThree = Instantiate(playerPrefab);
+        stateThree.transform.localScale = new Vector3(8, 8, 8);
+        stateThree.transform.SetParent(thirdPlatform.transform);
+        stateThree.GetComponent<GameController>().SendMessage("InitPlayer", playerData[2]);
+        stateThree.transform.localPosition = new Vector3(0, 0, 0.05f);
+        stateThree.AddComponent<LookForwardController>();
+        thirdState = playerData[2].stateNumber;
     }
     public void TurnLeft()
     {
@@ -71,10 +139,12 @@ public class MenuInputController : MonoBehaviour
 
         if (rotation >= 120 || rotation <= -120)
         {
-            Debug.Log(rotation);
             platforms.transform.Rotate(Vector3.up, actualSpeed < 0 ? (rotation - 120) : -(rotation - 120));
             isRotating = false;
             rotation = 0;
+
+            buttonText.text = activeState < playerData.Length ? "Spiel starten" : "Neues Spiel";
+            deleteButton.SetActive(activeState < playerData.Length);
         }
     }
 }

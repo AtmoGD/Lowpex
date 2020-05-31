@@ -1942,7 +1942,7 @@ PrefabInstance:
     - target: {fileID: 8602696646397844078, guid: dc7d7771a634d25409120c09b1df2375,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -5.93
+      value: -6.45
       objectReference: {fileID: 0}
     - target: {fileID: 8602696646397844078, guid: dc7d7771a634d25409120c09b1df2375,
         type: 3}
@@ -1999,7 +1999,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: Hero
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6268684521672271870, guid: dc7d7771a634d25409120c09b1df2375, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: dc7d7771a634d25409120c09b1df2375, type: 3}
 --- !u!1 &617084018 stripped
 GameObject:
@@ -2977,7 +2978,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1083813164}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1593643568}
+        m_MethodName: SavePlayer
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1083813164
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics.Tracing;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "PlayerData", menuName = "Data/Player Data")]
-public class PlayerData : ScriptableObject
+public class PlayerData
 {
     public int stateNumber;
     public HeroType heroType;
@@ -35,9 +34,9 @@ public class PlayerData : ScriptableObject
     public float manaRecovery;
     #endregion
 
-    public Buff buffs;
+    //public Buff buffs;
 
-    public Vector3 position;
+    public Vector3 position = new Vector3();
 
     public PrimaryWeapon primaryWeapon;
     public SecondaryWeapon secondaryWeapon;
