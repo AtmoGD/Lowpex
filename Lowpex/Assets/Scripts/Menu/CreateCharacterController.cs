@@ -28,13 +28,14 @@ public class CreateCharacterController : MonoBehaviour
     private void Start()
     {
         turnSpeed = 0;
-        animator = hero.GetComponent<Animator>();
 
+        animator = hero.GetComponent<Animator>();
         Destroy(hero.GetComponent<Rigidbody>());
-        equ = hero.GetComponent<EquipController>();
 
         playerData = DataConverter.ConvertToPlayerData(new SerializablePlayerData(HeroType.Warrior, 4));
+        equ = hero.AddComponent<EquipController>();
         equ.TakePlayer(playerData);
+
         ChangeHeroType(1);
     }
     private void Update()

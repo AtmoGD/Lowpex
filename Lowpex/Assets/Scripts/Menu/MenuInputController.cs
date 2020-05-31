@@ -86,7 +86,8 @@ public class MenuInputController : MonoBehaviour
         GameObject stateOne = Instantiate(playerPrefab);
         stateOne.transform.localScale = new Vector3(8, 8, 8);
         stateOne.transform.SetParent(firstPlatform.transform);
-        stateOne.GetComponent<GameController>().SendMessage("InitPlayer", playerData[0]);
+        MenuHeroController controller = stateOne.AddComponent<MenuHeroController>();
+        controller.SendMessage("InitPlayer", playerData[0]);
         stateOne.transform.localPosition = new Vector3(0, 0, 0.05f);
         stateOne.AddComponent<LookForwardController>();
         firstState = playerData[0].stateNumber;
@@ -97,7 +98,8 @@ public class MenuInputController : MonoBehaviour
         GameObject stateTwo = Instantiate(playerPrefab);
         stateTwo.transform.localScale = new Vector3(8, 8, 8);
         stateTwo.transform.SetParent(secondPlatform.transform);
-        stateTwo.GetComponent<GameController>().SendMessage("InitPlayer", playerData[1]);
+        controller = stateTwo.AddComponent<MenuHeroController>();
+        controller.SendMessage("InitPlayer", playerData[1]);
         stateTwo.transform.localPosition = new Vector3(0, 0, 0.05f);
         stateTwo.AddComponent<LookForwardController>();
         secondState = playerData[1].stateNumber;
@@ -108,7 +110,8 @@ public class MenuInputController : MonoBehaviour
         GameObject stateThree = Instantiate(playerPrefab);
         stateThree.transform.localScale = new Vector3(8, 8, 8);
         stateThree.transform.SetParent(thirdPlatform.transform);
-        stateThree.GetComponent<GameController>().SendMessage("InitPlayer", playerData[2]);
+        controller = stateThree.AddComponent<MenuHeroController>();
+        controller.SendMessage("InitPlayer", playerData[2]);
         stateThree.transform.localPosition = new Vector3(0, 0, 0.05f);
         stateThree.AddComponent<LookForwardController>();
         thirdState = playerData[2].stateNumber;

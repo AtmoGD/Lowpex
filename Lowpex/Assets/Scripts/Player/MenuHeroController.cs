@@ -4,7 +4,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(EquipController))]
 [RequireComponent(typeof(Animator))]
-public class GameController : MonoBehaviour
+public class MenuHeroController : MonoBehaviour
 {
     private PlayerData playerData;
     private Animator animator;

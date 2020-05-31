@@ -4812,8 +4812,6 @@ GameObject:
   - component: {fileID: 8520526050495313860}
   - component: {fileID: 7329983038261087233}
   - component: {fileID: 3012280218181711458}
-  - component: {fileID: -6095903650305013865}
-  - component: {fileID: 6268684521672271870}
   m_Layer: 0
   m_Name: Hero
   m_TagString: Player
@@ -4940,30 +4938,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!114 &-6095903650305013865
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8604543475778068060}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 361f9e7f0620d264094a4a1fe5f6e11e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &6268684521672271870
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8604543475778068060}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01260f7e075b46b4aa25f606413cde20, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &8604543865449878286
 GameObject:
   m_ObjectHideFlags: 0
