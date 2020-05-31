@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Beginner Buch
   itemType: 0
-  itemPrefab: {fileID: 4251244296201498869, guid: 80498fea50a24d24da2708b96d40766f,
+  itemPrefab: {fileID: 2735833748930102771, guid: 96b27948409a0ad47920508cd2aead0c,
     type: 3}
   buff: {fileID: 0}
