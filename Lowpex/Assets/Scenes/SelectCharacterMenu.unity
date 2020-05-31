@@ -1183,7 +1183,7 @@ MonoBehaviour:
   playerPrefab: {fileID: 8604543475778068060, guid: dc7d7771a634d25409120c09b1df2375,
     type: 3}
   deleteButton: {fileID: 598471549}
-  rotationSpeed: 100
+  rotationSpeed: 200
   buttonText: {fileID: 1526718117}
 --- !u!4 &1227456156
 Transform:
