@@ -2,17 +2,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(EquipController))]
+[RequireComponent(typeof(UnityEngine.AI.NavMeshAgent))]
+[RequireComponent(typeof(Animator))]
 public class CharacterController : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    private PlayerData playerData;
 
-    // Update is called once per frame
-    void Update()
+    private EquipController equipController;
+    private Animator animator;
+
+    public void InitPlayer(PlayerData playerData)
     {
-        
+        this.playerData = playerData;
+
+        equipController = GetComponent<EquipController>();
+        equipController.TakePlayer(playerData);
+
+        animator = GetComponent<Animator>();
+        animator.runtimeAnimatorController = Resources.Load("Animations/" + playerData.heroType + "Controller") as RuntimeAnimatorController;
     }
 }

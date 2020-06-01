@@ -69,7 +69,7 @@ public class SerializablePlayerData
         position = new float[3];
 
         position[0] = 0;
-        position[1] = 0;
+        position[1] = 2;
         position[2] = 0;
 
         primaryWeapon = "BeginnerBow";
