@@ -24,12 +24,10 @@ public class StateController : MonoBehaviour
             BinaryFormatter formatter = new BinaryFormatter();
             FileStream stream = new FileStream(path, FileMode.Open);
 
-            string data = formatter.Deserialize(stream) as string;
+            int data = (int)formatter.Deserialize(stream);
             stream.Close();
 
-            int state = int.Parse(data);
-
-            return state;
+            return data;
         }
         return -1;
     }
@@ -80,6 +78,11 @@ public class StateController : MonoBehaviour
             }
         }
         return datas;
+    }
+    public static PlayerData LoadActualPlayer()
+    {
+        int activeState = GetActiveGameState();
+        return LoadPlayer(activeState);
     }
     public static PlayerData LoadPlayer(int stateNumber)
     {
