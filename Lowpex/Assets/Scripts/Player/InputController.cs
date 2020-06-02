@@ -65,12 +65,9 @@ public class InputController : MonoBehaviour
             distance = (firstTouch.position - secondTouch.position).magnitude;
             return;
         }
-        Debug.Log(distance < (firstTouch.position - secondTouch.position).magnitude);
-        if (distance < (firstTouch.position - secondTouch.position).magnitude)
-            camera.SendMessage("ZoomIn");
-        else
-            camera.SendMessage("ZoomOut");
 
+        float newDistance = (firstTouch.position - secondTouch.position).magnitude;
+        camera.SendMessage("Zoom", distance - newDistance);
     }
     private void RotateCamera(Touch touch)
     {

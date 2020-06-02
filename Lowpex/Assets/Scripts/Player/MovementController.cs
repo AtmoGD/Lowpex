@@ -19,10 +19,10 @@ public class MovementController : MonoBehaviour
     {
         animator = GetComponent<Animator>();
     }
-    private void FixedUpdate()
+    private void Update()
     {
         animator.SetFloat("Speed", actualSpeed / maxSpeed);
-        transform.localPosition += transform.forward * actualSpeed * Time.deltaTime;
+        transform.localPosition = Vector3.Lerp(transform.position, transform.position + transform.forward, actualSpeed * Time.deltaTime);
     }
     public void Move(float speed)
     {
