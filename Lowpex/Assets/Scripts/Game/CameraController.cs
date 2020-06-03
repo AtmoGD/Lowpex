@@ -4,60 +4,50 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    public float followSpeed;
-    public float rotationSpeed;
-    public float movementSpeed;
-    public float zoomSpeed;
+    public GameObject target;
 
-    public Vector3 offset = new Vector3(0, 10, -10);
-    public float distance = 10;
+    public float distance = 10.0f;
+    public float height = 5.0f;
+    public float heightDamping = 2.0f;
+    public float rotationDamping = 1.0f;
 
-    private GameObject target;
-
+    public float zoomSpeed = 3f;
+    public float moveSpeed = 1f;
     public void FollowTarget(GameObject target)
     {
         this.target = target;
-    }
-    void Update()
-    {
-        if (!target)
-            return;
-
-        FollowPlayer();
-
-        LookAtTarget();
     }
     public void Zoom(float speed)
     {
         distance = Mathf.Clamp(distance + (zoomSpeed * speed * Time.deltaTime), 5, 30);
     }
-    public void Move(Vector2 direction)
+    public void Move(float direction)
     {
-        direction *= movementSpeed;
-
-        Vector3 newPos = transform.position - target.transform.position;
-        newPos = Quaternion.Euler(-direction.y, direction.x, 0) * newPos;
-        newPos = Vector3.Normalize(newPos) * distance;
-
-        offset = Vector3.Lerp(offset, newPos, movementSpeed);
-
-        offset.y = Mathf.Clamp(offset.y, 1, 15);
+        height = Mathf.Clamp(height + (moveSpeed * direction * Time.deltaTime), 3, 30);
     }
-    private void LookAtTarget()
+    void LateUpdate()
     {
-        Quaternion originalRot = transform.rotation;
-        transform.LookAt(target.transform.position + (Vector3.up * 4));
-        Quaternion newRot = transform.rotation;
-        transform.rotation = originalRot;
-        transform.rotation = Quaternion.Lerp(transform.rotation, newRot, rotationSpeed * Time.deltaTime);
-    }
-    private void FollowPlayer()
-    {
-        offset = Vector3.Normalize(offset) * distance;
-        //Vector3 targetPos = Vector3.Lerp(transform.position, target.transform.position + offset, followSpeed * Time.deltaTime);
-        //Vector3 newPos = Vector3.Lerp(transform.position, targetPos, followSpeed * Time.deltaTime);
-        Vector3 newPos = Vector3.Lerp(transform.position, target.transform.position + offset, followSpeed * Time.deltaTime);
-        transform.position = newPos;
+        if (!target) 
+            return;
 
+        float wantedRotationAngle = target.transform.eulerAngles.y;
+        float wantedHeight = target.transform.position.y + height;
+
+        float currentRotationAngle = transform.eulerAngles.y;
+        float currentHeight = transform.position.y;
+
+        currentRotationAngle = Mathf.LerpAngle(currentRotationAngle, wantedRotationAngle, rotationDamping * Time.deltaTime);
+
+        currentHeight = Mathf.Lerp(currentHeight, wantedHeight, heightDamping * Time.deltaTime);
+
+        Quaternion currentRotation = Quaternion.Euler(0, currentRotationAngle, 0);
+
+        transform.position = target.transform.position;
+        transform.position -= currentRotation * Vector3.forward * distance;
+
+        transform.position = new Vector3(transform.position.x, currentHeight, transform.position.z);
+
+        transform.LookAt(target.transform.position + (target.transform.up * 4));
     }
+  
 }

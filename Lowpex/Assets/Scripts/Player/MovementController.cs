@@ -10,6 +10,8 @@ public class MovementController : MonoBehaviour
     private float actualSpeed = 0;
     private float maxSpeed = 15;
 
+    private float rotateSpeed = 5;
+
     private float damping = 150;
 
     private bool isAbleToMove = true;
@@ -36,8 +38,8 @@ public class MovementController : MonoBehaviour
             actualSpeed = speed * maxSpeed;
         }
     }
-    public void Rotate(Quaternion direction)
+    public void Rotate(Quaternion rotation)
     {
-        transform.rotation = direction;
+        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, rotateSpeed * Time.deltaTime);
     }
 }

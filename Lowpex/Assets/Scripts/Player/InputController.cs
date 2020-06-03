@@ -71,7 +71,7 @@ public class InputController : MonoBehaviour
     }
     private void RotateCamera(Touch touch)
     {
-        camera.SendMessage("Move", touch.deltaPosition);
+        camera.SendMessage("Move", touch.deltaPosition.y);
     }
     private void RotateTarget(Vector2 direction)
     {
