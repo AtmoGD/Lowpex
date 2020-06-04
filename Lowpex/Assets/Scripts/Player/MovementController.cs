@@ -6,40 +6,54 @@ using UnityEngine;
 public class MovementController : MonoBehaviour
 {
     private Animator animator;
+    private CameraController cameraController;
 
     private float actualSpeed = 0;
     private float maxSpeed = 15;
 
-    private float rotateSpeed = 5;
-
     private float damping = 150;
 
-    private bool isAbleToMove = true;
-    private bool isMoving = false;
+    private Quaternion moveDirection;
+    private Quaternion lookDirection;
 
     private void Start()
     {
         animator = GetComponent<Animator>();
+        cameraController = Camera.main.GetComponent<CameraController>();
     }
+
     private void Update()
     {
+        if (cameraController)
+            cameraController.SetMoveDirection(moveDirection);
+
         animator.SetFloat("Speed", actualSpeed / maxSpeed);
-        transform.localPosition = Vector3.Lerp(transform.position, transform.position + transform.forward, actualSpeed * Time.deltaTime);
+        
+
+        transform.rotation = moveDirection;
+        transform.position = Vector3.Lerp(transform.position, transform.position + transform.forward, actualSpeed * Time.deltaTime);
+
+        transform.rotation = lookDirection;
+
+        actualSpeed = actualSpeed > 0 ? actualSpeed - (damping * Time.fixedDeltaTime) : 0;
+        actualSpeed = actualSpeed < 0 ? 0 : actualSpeed;
     }
     public void Move(float speed)
     {
-        if (speed < 0.1)
-        {
-            actualSpeed = actualSpeed > 0 ? actualSpeed - (damping * Time.fixedDeltaTime) : 0;
-            actualSpeed = actualSpeed < 0 ? 0 : actualSpeed;
-        } 
-        else
-        {
-            actualSpeed = speed * maxSpeed;
-        }
+
+        actualSpeed = speed * maxSpeed;
+    }
+    public void SetMoveDirection(Quaternion direction)
+    {
+        moveDirection = direction;
+        lookDirection = direction;
+    }
+    public void SetLookDirection(Quaternion direction)
+    {
+        lookDirection = direction;
     }
     public void Rotate(Quaternion rotation)
     {
-        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, rotateSpeed * Time.deltaTime);
+        lookDirection = rotation;
     }
 }

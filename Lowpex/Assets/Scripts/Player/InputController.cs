@@ -6,18 +6,23 @@ using UnityEngine;
 public class InputController : MonoBehaviour
 {
     private FixedJoystick movementJoystick;
+    private FixedJoystick attackJoystick;
 
     private GameObject target;
-    private GameObject camera;
+    private GameObject mainCamera;
 
     private float distance = 0;
     public void TakeMovementJoystick(FixedJoystick movementJoystick)
     {
         this.movementJoystick = movementJoystick;
     }
+    public void TakeAttackJoystick(FixedJoystick attackJoystick)
+    {
+        this.attackJoystick = attackJoystick;
+    }
     public void TakeCamera(GameObject camera)
     {
-        this.camera = camera;
+        this.mainCamera = camera;
     }
     public void TakeTarget(GameObject target)
     {
@@ -25,7 +30,7 @@ public class InputController : MonoBehaviour
     }
     void Update()
     {
-        if (!movementJoystick || !target)
+        if (!movementJoystick || !target || !attackJoystick)
             return;
 
         if (Input.touchCount > 0 && movementJoystick.Direction.magnitude == 0)
@@ -47,13 +52,29 @@ public class InputController : MonoBehaviour
                 RotateCamera(Input.GetTouch(0));
             }
         }
-        MoveTarget(movementJoystick.Direction.magnitude);
 
         if (movementJoystick.Direction.magnitude != 0)
+            target.SendMessage("SetMoveDirection", GetRotation(movementJoystick.Direction));
+
+        if (attackJoystick.Direction.magnitude != 0)
+            target.SendMessage("SetLookDirection", GetRotation(attackJoystick.Direction));
+
+        target.SendMessage("Move", movementJoystick.Direction.magnitude);
+
+    }
+    private Quaternion GetRotation(Vector2 direction)
+    {
+        if (direction.magnitude == 0)
         {
-            RotateTarget(movementJoystick.Direction);
+            return new Quaternion(0, 0, 0, 0);
         }
 
+        float angle = -(float)Mathf.Atan2(direction.y, direction.x);
+        angle *= Mathf.Rad2Deg;
+        angle += mainCamera.transform.eulerAngles.y;
+        Quaternion rotation = Quaternion.Euler(0, angle + 90, 0);
+
+        return rotation;
     }
     private void ZoomCamera(Touch firstTouch, Touch secondTouch)
     {
@@ -67,23 +88,10 @@ public class InputController : MonoBehaviour
         }
 
         float newDistance = (firstTouch.position - secondTouch.position).magnitude;
-        camera.SendMessage("Zoom", distance - newDistance);
+        mainCamera.SendMessage("Zoom", distance - newDistance);
     }
     private void RotateCamera(Touch touch)
     {
-        camera.SendMessage("Move", touch.deltaPosition.y);
-    }
-    private void RotateTarget(Vector2 direction)
-    {
-        float angle = -(float)Mathf.Atan2(direction.y, direction.x);
-        angle *= Mathf.Rad2Deg;
-        angle += camera.transform.eulerAngles.y;
-        Quaternion rotation = Quaternion.Euler(0, angle + 90, 0);
-
-        target.SendMessage("Rotate", rotation);
-    }
-    private void MoveTarget(float speed)
-    {
-        target.SendMessage("Move", speed);
+        mainCamera.SendMessage("Move", touch.deltaPosition.y);
     }
 }

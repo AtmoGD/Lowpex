@@ -13,6 +13,9 @@ public class CameraController : MonoBehaviour
 
     public float zoomSpeed = 3f;
     public float moveSpeed = 1f;
+
+    private Quaternion direction;
+
     public void FollowTarget(GameObject target)
     {
         this.target = target;
@@ -25,12 +28,17 @@ public class CameraController : MonoBehaviour
     {
         height = Mathf.Clamp(height + (moveSpeed * direction * Time.deltaTime), 3, 30);
     }
+    public void SetMoveDirection(Quaternion direction)
+    {
+        this.direction = direction;
+    }
     void LateUpdate()
     {
         if (!target) 
             return;
 
-        float wantedRotationAngle = target.transform.eulerAngles.y;
+
+        float wantedRotationAngle = direction.eulerAngles.y;
         float wantedHeight = target.transform.position.y + height;
 
         float currentRotationAngle = transform.eulerAngles.y;
@@ -48,6 +56,7 @@ public class CameraController : MonoBehaviour
         transform.position = new Vector3(transform.position.x, currentHeight, transform.position.z);
 
         transform.LookAt(target.transform.position + (target.transform.up * 4));
+      
     }
-  
+
 }

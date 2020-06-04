@@ -6,6 +6,7 @@ public class GameController : MonoBehaviour
 {
     public GameObject heroPrefab;
     public FixedJoystick movementJoystick;
+    public FixedJoystick attackJoystick;
 
     private PlayerData playerData;
     private Camera mainCamera;
@@ -30,6 +31,7 @@ public class GameController : MonoBehaviour
         hero.SendMessage("TakeTarget", hero);
         hero.SendMessage("TakeCamera", mainCamera.gameObject);
         hero.SendMessage("TakeMovementJoystick", movementJoystick);
+        hero.SendMessage("TakeAttackJoystick", attackJoystick);
     }
     void Update()
     {
