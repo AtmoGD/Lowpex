@@ -34,7 +34,7 @@ public class CreateCharacterController : MonoBehaviour
 
         playerData = DataConverter.ConvertToPlayerData(new SerializablePlayerData(HeroType.Warrior, 4));
         equ = hero.AddComponent<EquipController>();
-        equ.TakePlayer(playerData);
+        equ.Init(playerData);
 
         ChangeHeroType(1);
     }

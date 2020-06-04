@@ -30,14 +30,13 @@ public class InputController : MonoBehaviour
     }
     void Update()
     {
-        if (!movementJoystick || !target || !attackJoystick)
+        if (!movementJoystick || !target || !attackJoystick || !mainCamera)
             return;
 
-        if (Input.touchCount > 0 && movementJoystick.Direction.magnitude == 0)
+        if (Input.touchCount > 0 && movementJoystick.Direction.magnitude == 0 && attackJoystick.Direction.magnitude == 0)
         {
-            if (Input.touchCount == 2 && movementJoystick.Direction.magnitude == 0)
+            if (Input.touchCount == 2)
             {
-                Debug.Log("here");
                 ZoomCamera(Input.GetTouch(0), Input.GetTouch(1));
                 return;
             }
@@ -54,12 +53,17 @@ public class InputController : MonoBehaviour
         }
 
         if (movementJoystick.Direction.magnitude != 0)
+        {
+            target.SendMessage("Move", movementJoystick.Direction.magnitude);
             target.SendMessage("SetMoveDirection", GetRotation(movementJoystick.Direction));
+        }
 
         if (attackJoystick.Direction.magnitude != 0)
+        {
             target.SendMessage("SetLookDirection", GetRotation(attackJoystick.Direction));
+            target.SendMessage("Attack");
+        }
 
-        target.SendMessage("Move", movementJoystick.Direction.magnitude);
 
     }
     private Quaternion GetRotation(Vector2 direction)

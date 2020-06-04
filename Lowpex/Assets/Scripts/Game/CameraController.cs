@@ -55,7 +55,7 @@ public class CameraController : MonoBehaviour
 
         transform.position = new Vector3(transform.position.x, currentHeight, transform.position.z);
 
-        transform.LookAt(target.transform.position + (target.transform.up * 4));
+        transform.LookAt(target.transform.position + (target.transform.up));
       
     }
 

@@ -17,7 +17,6 @@ public class GameController : MonoBehaviour
     }
     private void InitHero(PlayerData playerData)
     {
-
         GameObject hero = Instantiate(heroPrefab);
         heroPrefab.transform.position = playerData.position;
 
@@ -27,14 +26,10 @@ public class GameController : MonoBehaviour
         hero.AddComponent<CharacterController>();
         hero.SendMessage("InitPlayer", playerData);
 
-        hero.AddComponent<InputController>();
-        hero.SendMessage("TakeTarget", hero);
-        hero.SendMessage("TakeCamera", mainCamera.gameObject);
-        hero.SendMessage("TakeMovementJoystick", movementJoystick);
-        hero.SendMessage("TakeAttackJoystick", attackJoystick);
-    }
-    void Update()
-    {
-
+        InputController inputController =  hero.GetComponent<InputController>();
+        inputController.SendMessage("TakeTarget", hero);
+        inputController.SendMessage("TakeCamera", mainCamera.gameObject);
+        inputController.SendMessage("TakeMovementJoystick", movementJoystick);
+        inputController.SendMessage("TakeAttackJoystick", attackJoystick);
     }
 }

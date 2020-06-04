@@ -88,7 +88,7 @@ public class MenuInputController : MonoBehaviour
         stateOne.transform.SetParent(firstPlatform.transform);
         MenuHeroController controller = stateOne.AddComponent<MenuHeroController>();
         controller.SendMessage("InitPlayer", playerData[0]);
-        stateOne.transform.localPosition = new Vector3(0, 0, 0.05f);
+        stateOne.transform.localPosition = new Vector3(0, 0, 0.045f);
         stateOne.AddComponent<LookForwardController>();
         firstState = playerData[0].stateNumber;
 
@@ -100,7 +100,7 @@ public class MenuInputController : MonoBehaviour
         stateTwo.transform.SetParent(secondPlatform.transform);
         controller = stateTwo.AddComponent<MenuHeroController>();
         controller.SendMessage("InitPlayer", playerData[1]);
-        stateTwo.transform.localPosition = new Vector3(0, 0, 0.05f);
+        stateTwo.transform.localPosition = new Vector3(0, 0, 0.045f);
         stateTwo.AddComponent<LookForwardController>();
         secondState = playerData[1].stateNumber;
 
@@ -112,7 +112,7 @@ public class MenuInputController : MonoBehaviour
         stateThree.transform.SetParent(thirdPlatform.transform);
         controller = stateThree.AddComponent<MenuHeroController>();
         controller.SendMessage("InitPlayer", playerData[2]);
-        stateThree.transform.localPosition = new Vector3(0, 0, 0.05f);
+        stateThree.transform.localPosition = new Vector3(0, 0, 0.045f);
         stateThree.AddComponent<LookForwardController>();
         thirdState = playerData[2].stateNumber;
     }

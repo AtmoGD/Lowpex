@@ -14,7 +14,7 @@ public class MenuHeroController : MonoBehaviour
     void Start()
     {
         equipController = GetComponent<EquipController>();
-        equipController.TakePlayer(this.playerData);
+        equipController.Init(this.playerData);
 
         animator = GetComponent<Animator>();
         animator.runtimeAnimatorController = Resources.Load("Animations/" + playerData.heroType + "Controller") as RuntimeAnimatorController;

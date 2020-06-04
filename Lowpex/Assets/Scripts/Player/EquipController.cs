@@ -6,12 +6,23 @@ public class EquipController : MonoBehaviour
 {
     public PlayerData playerData;
 
-    public void TakePlayer(PlayerData data)
+    private GameObject primaryWeapon;
+    private GameObject secondaryWeapon;
+
+    public void Init(PlayerData data)
     {
         playerData = data;
         UpdatePlayer();
     }
-    private GameObject GetPrimary()
+    public GameObject GetPrimaryWeapon()
+    {
+        return primaryWeapon;
+    }
+    public GameObject GetSecondaryWeapon()
+    {
+        return secondaryWeapon;
+    }
+    public GameObject GetPrimary()
     {
         foreach (Transform obj in transform.GetComponentsInChildren<Transform>(true))
         {
@@ -20,7 +31,7 @@ public class EquipController : MonoBehaviour
         }
         return null;
     }
-    private GameObject GetSecondary()
+    public GameObject GetSecondary()
     {
         foreach (Transform obj in transform.GetComponentsInChildren<Transform>(true))
         {
@@ -41,6 +52,8 @@ public class EquipController : MonoBehaviour
         newWeapon.transform.localRotation = Quaternion.identity;
         newWeapon.transform.localPosition = Vector3.zero;
         newWeapon.transform.localScale = Vector3.one;
+
+        primaryWeapon = newWeapon;
     }
     public void EquipSecondary()
     {
@@ -55,6 +68,8 @@ public class EquipController : MonoBehaviour
         newWeapon.transform.localRotation = Quaternion.identity;
         newWeapon.transform.localPosition = Vector3.zero;
         newWeapon.transform.localScale = Vector3.one;
+
+        secondaryWeapon = newWeapon;
     }
     public void ClearPrimary()
     {

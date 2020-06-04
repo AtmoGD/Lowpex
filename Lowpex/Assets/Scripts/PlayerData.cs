@@ -25,7 +25,10 @@ public class PlayerData
     public int gold;
     public int gems;
     public int health;
+    public int maxHealth;
     public int mana;
+    public int maxMana;
+    public float attackSpeed;
     public float speed;
     public int crit;
     public int critResistance;
@@ -34,7 +37,7 @@ public class PlayerData
     public float manaRecovery;
     #endregion
 
-    //public Buff buffs;
+    public List<Buff> buffs;
 
     public Vector3 position = new Vector3();
 
@@ -42,4 +45,41 @@ public class PlayerData
     public SecondaryWeapon secondaryWeapon;
 
     public List<Item> inventory = new List<Item>();
+
+    public float GetAttackSpeed()
+    {
+        float attSpeed = attackSpeed;
+
+        foreach (Buff buff in buffs)
+        {
+            attackSpeed -= buff.attackSpeed;
+        }
+
+        return attSpeed;
+    }
+
+    public Damage GetDamage()
+    {
+        Damage dmg = new Damage();
+        dmg.damage = CalculateDamage();
+        dmg.isCrit = isCrit();
+
+        return dmg;
+    }
+    private int CalculateDamage()
+    {
+        int dmg = 0;
+
+        foreach(Buff buff in buffs)
+        {
+            dmg += buff.damage;
+        }
+
+        return dmg;
+    }
+
+    private bool isCrit()
+    {
+        return false;
+    }
 }

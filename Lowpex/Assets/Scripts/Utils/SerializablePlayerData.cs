@@ -23,7 +23,10 @@ public class SerializablePlayerData
     public int gold;
     public int gems;
     public int health;
+    public int maxHealth;
     public int mana;
+    public int maxMana;
+    public float attackSpeed;
     public float speed;
     public int crit;
     public int critResistance;
@@ -48,7 +51,10 @@ public class SerializablePlayerData
         gold = 0;
         gems = 0;
         health = 200;
+        maxHealth = 200;
         mana = 200;
+        maxMana = 200;
+        attackSpeed = type == HeroType.Hunter ? 1f : type == HeroType.Mage ? 1.3f : 1.5f;
         speed = 5;
         crit = 0;
         critResistance = 0;
