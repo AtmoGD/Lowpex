@@ -373,5 +373,21 @@ PrefabInstance:
       propertyPath: EmissionModule.rateOverTime.scalar
       value: 30
       objectReference: {fileID: 0}
+    - target: {fileID: 5860267869052021942, guid: 9a87b321842070c4994a3c5ce8c00b18,
+        type: 3}
+      propertyPath: LightsModule.enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5860267869052021942, guid: 9a87b321842070c4994a3c5ce8c00b18,
+        type: 3}
+      propertyPath: LightsModule.light
+      value: 
+      objectReference: {fileID: 9063836515532014439, guid: 187b42beaffb4e04e865085d831b2e96,
+        type: 3}
+    - target: {fileID: 5860267869052021942, guid: 9a87b321842070c4994a3c5ce8c00b18,
+        type: 3}
+      propertyPath: LightsModule.ratio
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9a87b321842070c4994a3c5ce8c00b18, type: 3}

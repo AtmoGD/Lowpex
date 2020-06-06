@@ -16,4 +16,4 @@ MonoBehaviour:
   itemType: 0
   itemPrefab: {fileID: 5513167072146085573, guid: 5cfc8b0212828aa46b39e797ceb95dc6,
     type: 3}
-  buff: {fileID: 0}
+  buff: {fileID: 11400000, guid: 0f4928d31b7b55a4e86eff0ce9c2e3db, type: 2}
