@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7615283353528435437}
+  - component: {fileID: 4607194770241549040}
   m_Layer: 0
   m_Name: BeginnerSword
   m_TagString: Untagged
@@ -31,6 +32,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4607194770241549040
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1660142420803946731}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72a81a312a97aec4eaf3cba04ae9b041, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackPrefab: {fileID: 2915585065187061198, guid: 2337dc4c569f07f498c45a13737407f7,
+    type: 3}
 --- !u!1001 &6182051934115573370
 PrefabInstance:
   m_ObjectHideFlags: 0

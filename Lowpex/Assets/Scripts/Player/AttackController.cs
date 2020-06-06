@@ -51,11 +51,11 @@ public class AttackController : MonoBehaviour
                 animator.SetFloat("AttackSpeed", attackTime < hunterAnimationTime ? attackTime : 1);
                 break;
             case HeroType.Mage:
-                instantiateTime = (mageAnimationTime / 8) * 5;
+                instantiateTime = (mageAnimationTime / 16) * 11;
                 animator.SetFloat("AttackSpeed", attackTime < mageAnimationTime ? attackTime : 1);
                 break;
             case HeroType.Warrior:
-                instantiateTime = (warriorAnimationTime / 8) * 6;
+                instantiateTime = (warriorAnimationTime / 16) * 5;
                 animator.SetFloat("AttackSpeed", attackTime < warriorAnimationTime ? attackTime : 1);
                 break;
         }
