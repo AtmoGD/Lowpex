@@ -14,7 +14,10 @@ public class AttackController : MonoBehaviour
     private float mageAnimationTime = 0.625f;
     private float warriorAnimationTime = 0.625f;
 
+    private GameObject firstSkill;
+
     private bool canAttack = true;
+    private bool canUseSkill = true;
 
     public void Init(PlayerData playerData)
     {
@@ -22,6 +25,22 @@ public class AttackController : MonoBehaviour
 
         animator = GetComponent<Animator>();
         equipController = GetComponent<EquipController>();
+
+        LoadSkills();
+    }
+
+    private void LoadSkills()
+    {
+        switch (playerData.heroType)
+        {
+            case HeroType.Mage:
+                firstSkill = Resources.Load("Prefabs/Attacks/MageHealSkill") as GameObject;
+                break;
+            case HeroType.Warrior:
+                break;
+            case HeroType.Hunter:
+                break;
+        }
     }
 
     public void Attack()
@@ -33,6 +52,27 @@ public class AttackController : MonoBehaviour
         animator.SetTrigger("Attack");
     }
 
+    public void UseFirstSkill()
+    {
+        if (!canUseSkill || !firstSkill)
+            return;
+
+        
+        StartCoroutine(SkillTimeout());
+    }
+    IEnumerator SkillTimeout()
+    {
+        canUseSkill = false;
+        animator.SetTrigger("HealSkill");
+        yield return new WaitForSecondsRealtime(0.2f);
+        GameObject skill = Instantiate(firstSkill);
+        skill.transform.position = this.transform.position;
+        skill.transform.SetParent(this.transform);
+
+        yield return new WaitForSecondsRealtime(1.3f);
+
+        canUseSkill = true;
+    }
     IEnumerator AttackCoroutine()
     {
         canAttack = false;

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(MovementController))]
 public class InputController : MonoBehaviour
@@ -98,4 +99,5 @@ public class InputController : MonoBehaviour
     {
         mainCamera.SendMessage("Move", touch.deltaPosition.y);
     }
+
 }

@@ -1,14 +1,17 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
     public GameObject heroPrefab;
     public FixedJoystick movementJoystick;
     public FixedJoystick attackJoystick;
+
     public GameObject heroPortraitBackground;
 
     private PlayerData playerData;
+    private GameObject hero;
     private Camera mainCamera;
     private void Start()
     {
@@ -18,7 +21,7 @@ public class GameController : MonoBehaviour
     }
     private void InitHero(PlayerData playerData)
     {
-        GameObject hero = Instantiate(heroPrefab);
+        hero = Instantiate(heroPrefab);
         heroPrefab.transform.position = playerData.position;
 
         mainCamera = Camera.main;
@@ -47,5 +50,18 @@ public class GameController : MonoBehaviour
         heroPortrait.transform.SetParent(heroPortraitBackground.transform);
         heroPortrait.transform.localPosition = new Vector3(0, -55, 0);
         heroPortrait.transform.localScale = Vector3.one * 80;
+    }
+    public void UseSkill(int skill)
+    {
+        switch (skill)
+        {
+            case 0:
+                hero.SendMessage("UseFirstSkill");
+                break;
+            case 1:
+                break;
+            case 2:
+                break;
+        }
     }
 }
