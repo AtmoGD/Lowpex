@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
-using System.Runtime.InteropServices;
 
 public class StateController : MonoBehaviour
 {
@@ -35,6 +34,7 @@ public class StateController : MonoBehaviour
     {
         BinaryFormatter formatter = new BinaryFormatter();
         string path = Application.persistentDataPath + "/player" + player.stateNumber + ".data";
+        Debug.Log("Save: " + player.stateNumber);
         FileStream stream = new FileStream(path, FileMode.Create);
 
         formatter.Serialize(stream, player);
@@ -87,6 +87,7 @@ public class StateController : MonoBehaviour
     public static PlayerData LoadPlayer(int stateNumber)
     {
         string path = Application.persistentDataPath + "/player" + stateNumber + ".data";
+        Debug.Log("Load: " + stateNumber);
         if (File.Exists(path))
         {
             BinaryFormatter formatter = new BinaryFormatter();
@@ -107,14 +108,30 @@ public class StateController : MonoBehaviour
     }
     public static int CreateNewGameState(HeroType type)
     {
-        PlayerData[] pData = LoadAllPlayer();
-        int stateNumber = pData == null ? 0 : pData.Length;
+        int stateNumber = GetEmptyState();
+
         SerializablePlayerData data = new SerializablePlayerData(type, stateNumber);
         BinaryFormatter formatter = new BinaryFormatter();
+
         string path = Application.persistentDataPath + "/player" + stateNumber + ".data";
         FileStream stream = new FileStream(path, FileMode.Create);
+
         formatter.Serialize(stream, data);
         stream.Close();
+        return stateNumber;
+    }
+
+    private static int GetEmptyState()
+    {
+        PlayerData[] pData = LoadAllPlayer();
+
+        if (pData == null)
+            return 0;
+
+        int stateNumber = 0;
+        foreach (PlayerData player in pData)
+            stateNumber += player.stateNumber == stateNumber ? 1 : 0;
+
         return stateNumber;
     }
     public static void DeleteAll()

@@ -1173,7 +1173,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1227456154}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0c2192c08d810cb47b7cffb714802a20, type: 3}
+  m_Script: {fileID: 11500000, guid: 03240dfa75dca63499e098e904836af7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   platforms: {fileID: 487696097}
@@ -1183,8 +1183,10 @@ MonoBehaviour:
   playerPrefab: {fileID: 8604543475778068060, guid: dc7d7771a634d25409120c09b1df2375,
     type: 3}
   deleteButton: {fileID: 598471549}
-  rotationSpeed: 200
   buttonText: {fileID: 1526718117}
+  activePlatform: 0
+  activeState: -1
+  rotationSpeed: 150
 --- !u!4 &1227456156
 Transform:
   m_ObjectHideFlags: 0

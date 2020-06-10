@@ -74,9 +74,9 @@ public class SerializablePlayerData
 
         position = new float[3];
 
-        position[0] = 0;
-        position[1] = 2;
-        position[2] = 0;
+        position[0] = -188;
+        position[1] = 3;
+        position[2] = 103;
 
         primaryWeapon = "BeginnerBow";
         secondaryWeapon = "BeginnerArrow";

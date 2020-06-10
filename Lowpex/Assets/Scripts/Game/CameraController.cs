@@ -22,11 +22,11 @@ public class CameraController : MonoBehaviour
     }
     public void Zoom(float speed)
     {
-        distance = Mathf.Clamp(distance + (zoomSpeed * speed * Time.deltaTime), 5, 30);
+        distance = Mathf.Clamp(distance + (zoomSpeed * speed * Time.deltaTime), 1, 15);
     }
     public void Move(float direction)
     {
-        height = Mathf.Clamp(height + (moveSpeed * direction * Time.deltaTime), 3, 30);
+        height = Mathf.Clamp(height + (moveSpeed * direction * Time.deltaTime), 1, 15);
     }
     public void SetMoveDirection(Quaternion direction)
     {

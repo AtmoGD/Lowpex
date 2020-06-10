@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,7 +12,8 @@ using UnityEngine;
 public class CharacterController : MonoBehaviour
 {
     private PlayerData playerData;
-
+    [SerializeField]
+    private float saveLoop = 1.5f;
     private Animator animator;
 
     private EquipController equipController;
@@ -33,5 +35,23 @@ public class CharacterController : MonoBehaviour
 
         animator = GetComponent<Animator>();
         animator.runtimeAnimatorController = Resources.Load("Animations/" + playerData.heroType + "Controller") as RuntimeAnimatorController;
+
+        StartCoroutine(SaveCoroutine());
+    }
+
+    private void Update()
+    {
+        if (this.playerData == null)
+            return;
+    }
+
+    IEnumerator SaveCoroutine()
+    {
+        while (true)
+        {
+            StateController.SavePlayer(DataConverter.ConvertFromPlayerData(this.playerData));
+            Debug.Log("SavedPlayer: " + this.playerData.position);
+            yield return new WaitForSecondsRealtime(saveLoop);
+        }
     }
 }

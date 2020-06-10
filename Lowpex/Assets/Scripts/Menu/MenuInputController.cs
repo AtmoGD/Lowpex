@@ -7,19 +7,22 @@ using UnityEngine.UI;
 
 public class MenuInputController : MonoBehaviour
 {
+    public PlayerData[] playerData = new PlayerData[3];
+
     public GameObject platforms;
+
     public GameObject firstPlatform;
     public GameObject secondPlatform;
     public GameObject thirdPlatform;
+
     public GameObject playerPrefab;
     public GameObject deleteButton;
+    public Text buttonText;
 
     public float rotationSpeed = 50f;
-    public Text buttonText;
     
-    public PlayerData[] playerData;
-
     private int activeState = 0;
+    private int activePlatform = 0;
     private int firstState;
     private int secondState;
     private int thirdState;
@@ -32,10 +35,8 @@ public class MenuInputController : MonoBehaviour
     {
         LoadPlayer();
 
-        if (playerData == null)
-            buttonText.text = "Neues Spiel";
-        else 
-            buttonText.text = activeState < playerData.Length ? "Spiel starten" : "Neues Spiel";
+        buttonText.text = activePlatformExists() ? "Spiel Starten" : "Neues Spiel";
+        deleteButton.SetActive(activePlatformExists());
     }
 
     void Update()
@@ -62,18 +63,10 @@ public class MenuInputController : MonoBehaviour
     }
     public void DeleteActiveState()
     {
-        switch (activeState)
-        {
-            case 0:
-                StateController.DeleteState(firstState);
-                break;
-            case 1:
-                StateController.DeleteState(secondState);
-                break;
-            case 2:
-                StateController.DeleteState(thirdState);
-                break;
-        }
+        /*
+        StateController.DeleteAll();
+        */
+        StateController.DeleteState(activeState);
         SceneManager.LoadScene(1);
     }
     private void LoadPlayer()
@@ -91,6 +84,7 @@ public class MenuInputController : MonoBehaviour
         stateOne.transform.localPosition = new Vector3(0, 0, 0.045f);
         stateOne.AddComponent<LookForwardController>();
         firstState = playerData[0].stateNumber;
+        activeState = firstState;
 
         if (playerData.Length < 2)
             return;
@@ -103,6 +97,7 @@ public class MenuInputController : MonoBehaviour
         stateTwo.transform.localPosition = new Vector3(0, 0, 0.045f);
         stateTwo.AddComponent<LookForwardController>();
         secondState = playerData[1].stateNumber;
+        activeState = secondState;
 
         if (playerData.Length < 3)
             return;
@@ -115,6 +110,7 @@ public class MenuInputController : MonoBehaviour
         stateThree.transform.localPosition = new Vector3(0, 0, 0.045f);
         stateThree.AddComponent<LookForwardController>();
         thirdState = playerData[2].stateNumber;
+        activeState = thirdState;
     }
     public void TurnLeft()
     {
@@ -122,8 +118,9 @@ public class MenuInputController : MonoBehaviour
             return;
 
         actualSpeed = rotationSpeed;
-        activeState = activeState == 0 ? 2 : activeState - 1;
+        activePlatform = activePlatform == 0 ? 2 : activePlatform - 1;
         isRotating = true;
+        ChangeState();
     }
     public void TurnRight()
     {
@@ -131,8 +128,35 @@ public class MenuInputController : MonoBehaviour
             return;
 
         actualSpeed = -rotationSpeed;
-        activeState = activeState == 2 ? 0 : activeState + 1;
+        activePlatform = activePlatform == 2 ? 0 : activePlatform + 1;
         isRotating = true;
+        ChangeState();
+    }
+    private void ChangeState()
+    {
+        if (playerData == null)
+            return;
+
+        if (activePlatform < playerData.Length)
+            activeState = playerData[activePlatform].stateNumber;
+
+        /*
+        switch (activePlatform)
+        {
+            case 0:
+                if (playerData[0] != null)
+                    activePlatform = playerData[0].stateNumber;
+                break;
+            case 1:
+                if (playerData[1] != null)
+                    activePlatform = playerData[1].stateNumber;
+                break;
+            case 2:
+                if (playerData[2])
+                    activePlatform = playerData[2].stateNumber;
+                break;
+        }
+        */
     }
     private void Rotate()
     {
@@ -146,8 +170,31 @@ public class MenuInputController : MonoBehaviour
             isRotating = false;
             rotation = 0;
 
-            buttonText.text = activeState < playerData.Length ? "Spiel starten" : "Neues Spiel";
-            deleteButton.SetActive(activeState < playerData.Length);
+            buttonText.text = activePlatformExists() ? "Spiel starten" : "Neues Spiel";
+            deleteButton.SetActive(activePlatformExists());
         }
+    }
+
+    private bool activePlatformExists()
+    {
+        if (playerData == null)
+            return false;
+
+        if (activePlatform < playerData.Length)
+            return true;
+
+        return false;
+        /*
+        if (playerData == null)
+            return false;
+
+        bool isActive = false;
+        foreach (PlayerData player in playerData)
+        {
+            if (activePlatform == player.stateNumber)
+                isActive = true;
+        }
+        return isActive;
+        */
     }
 }

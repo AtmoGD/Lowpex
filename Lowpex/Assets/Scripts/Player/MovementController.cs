@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -30,6 +31,12 @@ public class MovementController : MonoBehaviour
 
     private void Update()
     {
+        if (this.playerData != null)
+        {
+            Debug.Log("Here");
+            this.playerData.position = transform.position;
+        }
+
         if (cameraController)
             cameraController.SetMoveDirection(moveDirection);
 
