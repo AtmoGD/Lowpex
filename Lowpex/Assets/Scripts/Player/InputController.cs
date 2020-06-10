@@ -34,6 +34,7 @@ public class InputController : MonoBehaviour
         if (!movementJoystick || !target || !attackJoystick || !mainCamera)
             return;
 
+
         if (Input.touchCount > 0 && movementJoystick.Direction.magnitude == 0 && attackJoystick.Direction.magnitude == 0)
         {
             if (Input.touchCount == 2)

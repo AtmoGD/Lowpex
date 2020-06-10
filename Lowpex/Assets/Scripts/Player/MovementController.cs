@@ -14,7 +14,7 @@ public class MovementController : MonoBehaviour
     private float actualSpeed = 0;
 
     private float damping = 30;
-    private float rotationSpeed = 3;
+    private float rotationSpeed = 2.5f;
 
     private Quaternion moveDirection;
     private Quaternion lookDirection;
