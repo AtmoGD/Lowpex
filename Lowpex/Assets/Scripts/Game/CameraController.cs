@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    public GameObject target;
+    public GameObject target; 
 
     public float distance = 10.0f;
     public float height = 5.0f;
